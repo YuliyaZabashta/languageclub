@@ -1,79 +1,92 @@
+const popup = document.getElementById('pop-up');
+
+function popYes() {
+  sessionStorage.setItem('popup', 'none');
+  location.reload();
+}
+
+if(sessionStorage.getItem('popup') || !window.sessionStorage) {
+  popup.parentNode.removeChild(popup);
+}else{
+  if(window.stop !== undefined) {
+    window.stop();
+  } 
+}
+
 const animItems = document.querySelectorAll('._anim-items');
 
 if(animItems.length>0){
-        window.addEventListener('scroll', animOnScroll);
-        function animOnScroll(){
-            for(let index = 0; index < animItems.length; index++){
-                const animItem = animItems[index];
-                const animItemHeight = animItem.offsetHeight;
-                const animItemOffset = offset(animItem).top;
-                const animStart = 4;
+    window.addEventListener('scroll', animOnScroll);
+    function animOnScroll(){
+        for(let index = 0; index < animItems.length; index++){
+            const animItem = animItems[index];
+            const animItemHeight = animItem.offsetHeight;
+            const animItemOffset = offset(animItem).top;
+            const animStart = 4;
                 
-                let animItemPoint = window.innerHeight - animItemHeight / animStart;
-                if(animItemHeight > window.innerHeight){
-                    animItemPoint = window.innerHeight - window.innerHeight / animStart;
-                }
+            let animItemPoint = window.innerHeight - animItemHeight / animStart;
+            if(animItemHeight > window.innerHeight){
+                animItemPoint = window.innerHeight - window.innerHeight / animStart;
+            }
 
-                if((pageYOffset > animItemOffset - animItemPoint) && pageYOffset < (animItemOffset + animItemHeight)){
-                    animItem.classList.add('_active');
-                }else{
-                    if(!animItem.classList.contains('_anim-no-hide')){
-                        animItem.classList.remove('_active');
-                    }
+            if((scrollY > animItemOffset - animItemPoint) && scrollY < (animItemOffset + animItemHeight)){
+                animItem.classList.add('_active');
+            }else{
+                if(!animItem.classList.contains('_anim-no-hide')){
+                    animItem.classList.remove('_active');
                 }
             }
         }
-        function offset(el){
-            const rect = el.getBoundingClientRect(),
-                scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-                scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            return{top: rect.top + scrollTop, left: rect.left + scrollLeft}
-        }
-        setTimeout(() =>{
-            animOnScroll();
-        },300); 
     }
+    function offset(el){
+        const rect = el.getBoundingClientRect(),
+            scrollLeft = window.scrollY || document.documentElement.scrollLeft,
+            scrollTop = window.scrollY || document.documentElement.scrollTop;
+        return{top: rect.top + scrollTop, left: rect.left + scrollLeft}
+    }
+    setTimeout(() =>{
+        animOnScroll();
+    },300); 
+}
 
-    $(document).ready(function() {
-        var element = $(".header_box");
-        var height_el = element.offset().top;
+$(document).ready(function() {
+    const element = $(".header_box");
+    const height_el = element.offset().top;
          
-        $(".header_box_position").css({
-            "width": element.outerWidth(),
-            "height": element.outerHeight()
-        });
-     
-        $(window).scroll(function() {
-            if($(window).scrollTop() > height_el) {
-                element.addClass("fixed");
-            } else {
-                element.removeClass("fixed");
-            }
-        });
+    $(".header_box_position").css({
+        "width": element.outerWidth(),
+        "height": element.outerHeight()
     });
+     
+    $(window).scroll(function() {
+        if($(window).scrollTop() > height_el) {
+            element.addClass("fixed");
+        } else {
+            element.removeClass("fixed");
+        }
+    });
+});
 
 
-    $(document).ready(function() {
-        var element = $(".dropdown-content");
-        var height_el = element.offset().top;
+$(document).ready(function() {
+    const element = $(".dropdown-content");
+    const height_el = element.offset().top;
          
-        $(".dropdown-content").css({
-            "width": element.outerWidth(),
-            "height": element.outerHeight()
-        });
-     
-        $(window).scroll(function() {
-            if($(window).scrollTop() > height_el) {
-                element.addClass("contentfixed");
-            } else {
-                element.removeClass("contentfixed");
-            }
-        });
+    $(".dropdown-content").css({
+        "width": element.outerWidth(),
+        "height": element.outerHeight()
     });
+     
+    $(window).scroll(function() {
+        if($(window).scrollTop() > height_el) {
+            element.addClass("contentfixed");
+        } else {
+            element.removeClass("contentfixed");
+        }
+    });
+});
 
     
-
-    // active class of menu items onscroll
 window.addEventListener('scroll', () => {
 	let scrollDistance = window.scrollY;
 
@@ -97,97 +110,65 @@ function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
 
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-
-  if (!event.target.matches('.menubtn')) {
-
-    var dropdowns = document.getElementsByClassName("menu-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-
 function myMenu() {
     document.getElementById("mymenu").classList.toggle("show");
 }
 
+function showMenu(el){
+    let i;
+    for (i = 0; i < el.length; i++) {
+        let openDropdown = el[i];
+        if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+        }
+    }
+}
 
-function checkButton() {   
-    var language = document.querySelector(   
-        'input[id="language"]:checked'); 
-        
-    if(language != null) {
-        var language1 = language.value; 
-    }   
-    else {   
-        document.getElementById("error").innerHTML   
-            = "Выберите язык. ";   
-    }   
-    
-    var age = document.querySelector(   
-        'input[id="age"]:checked'); 
-        
-    if(age != null) {   
-        var age1 = age.value   
-    }   
-    else {   
-        document.getElementById("error1").innerHTML   
-         = "Выберите возраст. ";  
-         var age = document.querySelector(   
-            'input[id="age"]:checked');    
-    }   
-    var class_schedule = document.querySelector(   
-        'input[id="class_schedule"]:checked'); 
-        
-    if(class_schedule != null) {   
-        var class_schedule1 = class_schedule.value   
-    }   
-    else {   
-        document.getElementById("error2").innerHTML   
-         = "Выберите график. ";   
+window.onclick = function(event) {
+    const dropdowns = document.getElementsByClassName("dropdown-content")
+    const dropdownsMini = document.getElementsByClassName("menu-content")
+    if(!event.target.matches('.dropbtn')) {
+    showMenu(dropdowns)
     }  
-    var class_type = document.querySelector(   
-        'input[id="class_type"]:checked'); 
-        
-    if(class_type != null) {     
-        var class_type1 = class_type.value   
-    }   
-    else {   
-        document.getElementById("error3").innerHTML   
-         = "Выберите тип занятий. ";   
-    }  
+    if(!event.target.matches('.menubtn')) {
+    showMenu(dropdownsMini)  
+    }
+} 
 
-    if(language != null && age != null && class_schedule != null && class_type != null){ 
-       var calc = language1*age1*class_schedule1*class_type1
-       document.getElementById("disp").innerHTML   
-       = Math.round(calc); 
-       document.getElementById("disp1").innerHTML   
-       = Math.round(calc*9*0.95/2); 
-       document.getElementById("disp2").innerHTML   
-       = Math.round(calc*9*0.92);   
+function checkButton(){
+    calcerror.classList.remove('noactive')
+    let language = document.querySelector('input[id="language"]:checked') 
+    let age = document.querySelector('input[id="age"]:checked') 
+    let class_schedule = document.querySelector('input[id="class_schedule"]:checked') 
+    let class_type = document.querySelector('input[id="class_type"]:checked') 
+        
+    language === null ?
+        document.querySelector("#error").innerHTML = "Выберите язык. " : document.querySelector("#error").innerHTML = ""  
+    age === null ?  
+        document.querySelector("#error1").innerHTML = "Выберите возраст. " : document.querySelector("#error1").innerHTML = ""  
+    class_schedule === null ?   
+        document.querySelector("#error2").innerHTML = "Выберите график. " : document.querySelector("#error2").innerHTML = ""          
+    class_type === null ?       
+        document.querySelector("#error3").innerHTML = "Выберите тип занятий. " : document.querySelector("#error3").innerHTML = ""   
+      
+    if(language && age && class_schedule && class_type != null){ 
+       let calc = language.value*age.value*class_schedule.value*class_type.value
+       document.querySelector("#disp").innerHTML = Math.ceil(calc); 
+       document.querySelector("#disp1").innerHTML = Math.ceil(calc*9*0.95/2); 
+       document.querySelector("#disp2").innerHTML = Math.ceil(calc*9*0.92);   
        calcres.classList.add('calcactive');
        calcparametr.classList.add('noactive');
     }else{
         success.classList.add('noactive');
     }
-}    
+}  
 
+document.getElementById('calcparametr').addEventListener('click', function(event){
+    let tagName = event.target.tagName.toLowerCase()
+    if(tagName === 'input'){
+        calcerror.classList.add('noactive')
+    }
+})
 
 function showModal() {
     document.getElementById("myModal").classList.add("show-window");
@@ -206,19 +187,19 @@ function exitTest() {
 }
 
 function check() {    
-    var question;
-    var noright;
-    var right;
+    let question;
+    let noright;
+    let right;
     
     question = 1;
     noright = 0;
     right = 0;
         
     result = "";
-    var choice; 
+    let choice; 
     for (question = 1; question <= 20; question++) {
-        var q = document.forms['quiz'].elements['q'+question];
-        for (var i = 0; i < q.length; i++) {
+        let q = document.forms['quiz'].elements['q'+question];
+        for (let i = 0; i < q.length; i++) {
             if (q[i].checked) {
                 choice = q[i].value;
             }
@@ -247,32 +228,16 @@ function check() {
     }
 }    
  
- 
 $(function() {
     $('.btn-next').click(function(e) {
-       var $current = $('.answer.testactive');
+       const $current = $('.answer.testactive');
        $current.removeClass('testactive');
        $current.next('.answer').addClass('testactive');
     });
 });
 
 
-var popup = document.getElementById('pop-up');
 
-function popYes() {
-  sessionStorage.setItem('popup', 'none');
-  location.reload();
-}
-
-if(sessionStorage.getItem('popup') || !window.sessionStorage) {
-  popup.parentNode.removeChild(popup);
-}else{
-  if(window.stop !== undefined) {
-    window.stop();
-  } else if (document.execCommand !== undefined) {
-    document.execCommand("Stop", false);
-  }
-}
 
  
 

@@ -1181,6 +1181,9 @@ th#year,td#year{
     margin-top: -35px;
     margin-bottom:-35px;
 }
+#calcerror.noactive{
+    opacity: 0;
+}
 @media(max-width:1200px){
    #calcerror{
     width: 100%;
