@@ -6,16 +6,28 @@
         <div class="header_logo"><a href="/"><h1>
             Language Education Club</h1><a>    
         </div>
-        <a onclick="showTest()"><button id="test" class="btn btn-primary" type="submit">Пройти тест</button></a>
-        <div class="dropdown">  
-            <a href="/">Главная</a>
-            <a href="#calc">Цены</a>
-            <a onclick="myFunction()" class="dropbtn">Услуги</a>
-            <div id="myDropdown" class="dropdown-content">
+        <a onclick="showTest()"><button id="test" class="btn btn-primary" type="submit">Тест</button></a>
+        <div class="bigmenu">
+            <div class="dropdown">  
+                <a href="/">Главная</a>
+                <a href="#calc">Цены</a>
+                <a onclick="myFunction()" class="dropbtn">Услуги</a>
+                <div id="myDropdown" class="dropdown-content">
+                    @foreach($services as $service)
+                    <a href="#{{$service['alias']}}">{{$service['name']}}</a>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        <div class="hamburger-menu">
+            <a onclick="myMenu()" class="menubtn">	&#9776;</a>
+            <div id="mymenu" class="menu-content">
+                <a href="/">Главная</a>
                 @foreach($services as $service)
                 <a href="#{{$service['alias']}}">{{$service['name']}}</a>
                 @endforeach
-            </div>
+                <a href="#calc">Цены</a>
+            </div> 
         </div>
     </div>
 </div>

@@ -52,6 +52,25 @@ if(animItems.length>0){
         });
     });
 
+
+    $(document).ready(function() {
+        var element = $(".dropdown-content");
+        var height_el = element.offset().top;
+         
+        $(".dropdown-content").css({
+            "width": element.outerWidth(),
+            "height": element.outerHeight()
+        });
+     
+        $(window).scroll(function() {
+            if($(window).scrollTop() > height_el) {
+                element.addClass("contentfixed");
+            } else {
+                element.removeClass("contentfixed");
+            }
+        });
+    });
+
     
 
     // active class of menu items onscroll
@@ -90,6 +109,22 @@ window.onclick = function(event) {
       }
     }
   }
+
+  if (!event.target.matches('.menubtn')) {
+
+    var dropdowns = document.getElementsByClassName("menu-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+function myMenu() {
+    document.getElementById("mymenu").classList.toggle("show");
 }
 
 
@@ -238,5 +273,8 @@ if(sessionStorage.getItem('popup') || !window.sessionStorage) {
     document.execCommand("Stop", false);
   }
 }
+
+ 
+
 
  
