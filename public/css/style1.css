@@ -1636,3 +1636,24 @@ a.delprice{
     font-size: 48px;
     margin-left: 30px;
 }
+
+.er404{
+    height: 267px; 
+    width: 900px; 
+    margin-left: 16%;  
+    background-image: url('/images/404.png');
+    background-size: cover;
+    margin-top: 47.2px; 
+    font-family:'Cooper', arial;
+    border: 1px solid rgba(255, 255, 255, 0); 
+    color: #fff;
+}
+.er404 p{
+    font-size: 62px; 
+    margin: 35px 0 35px;
+}
+.er404 a{
+    text-decoration: none; 
+    color: #fff;  
+    font-size: 38px;
+}

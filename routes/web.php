@@ -52,6 +52,7 @@ Route::group(['prefix'=>'admin'],function(){
 });
 Route::post('/login',['uses'=>'App\Http\Controllers\Auth\LoginController@authenticate','as'=>'login']);
 Route::get('/logout',['uses'=>'App\Http\Controllers\Auth\LoginController@logout','as'=>'logout']);
+Route::get('/register',['uses'=>'App\Http\Controllers\Auth\RegisteredUserController@create']);
 
 
 Route::middleware([
